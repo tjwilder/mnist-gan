@@ -140,31 +140,8 @@ def train(G, D, epochs=200, learning_rate=0.0002):
                    "images/%d.png" % batches_done, nrow=5, normalize=True)
 
 
-# def test(model):
-#   with torch.no_grad():
-#     correct = 0
-#     total = 0
-#     for images, labels in test_loader:
-#       images = images.reshape(-1, 28 * 28).to(device)
-#       labels = labels.to(device)
-#       # pass the test images batch to the trained model to compute
-#       # outputs
-#       (real_outputs, fake_outputs, images) = model(images)
-#       # fetching the class with maximum probability for every image in
-#       # the batch as the predicted label
-#       _, predicted = torch.max(real_outputs.data, 1)
-#       total += labels.size(0)
-#       # compute the total correctly predicted outcomes (when test image
-#       # label = predicted)
-#       correct += (predicted == labels).sum().item()
-
-#     print('Accuracy of the network on the 10000 test images: {} %'.format(
-#         100 * correct / total))
-
-
 if __name__ == '__main__':
   load_dataset()
   G = Generator(latent_dim, 28 * 28, [128, 256, 512, 1024]).to(device)
   D = Discriminator(28 * 28, 1, [512, 256]).to(device)
   train(G, D)
-  # test(G, D)
